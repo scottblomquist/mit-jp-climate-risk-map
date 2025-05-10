@@ -1,4 +1,4 @@
-name: Build And Test - sb
+name: Build And Test - sb 10:15
 on:
   push:
     branches: [main]
@@ -37,7 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: ⚡ Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/registry/index/
@@ -47,7 +47,7 @@ jobs:
           key: ${{ runner.os }}-cargo-dependencies-${{ hashFiles('**/Cargo.lock') }}
 
       - name: ⚡ Cache sqlx-cli
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         id: cache-sqlx
         with:
           path: |
@@ -60,7 +60,7 @@ jobs:
         run: cargo install sqlx-cli --force --version ${{ env.SQLX_VERSION }} --no-default-features --features "${{ env.SQLX_FEATURES }}"
 
       - name: Migrate database
-        run: SKIP_DOCKER=true ./init_db.sh
+        run: ./init_db.sh
         working-directory: backend
 
       - name: 🔨 Build
@@ -98,7 +98,7 @@ jobs:
         working-directory: frontend
 
       - name: ⚡ Cache yarn dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
