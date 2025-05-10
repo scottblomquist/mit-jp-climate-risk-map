@@ -60,7 +60,7 @@ jobs:
         run: cargo install sqlx-cli --force --version ${{ env.SQLX_VERSION }} --no-default-features --features "${{ env.SQLX_FEATURES }}"
 
       - name: Migrate database
-        run: SKIP_DOCKER=true ./init_db.sh
+        run: ./init_db.sh
         working-directory: backend
 
       - name: 🔨 Build
