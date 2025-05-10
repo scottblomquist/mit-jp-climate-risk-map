@@ -1,4 +1,4 @@
-name: Build And Test - sb
+name: Build And Test - sb 10:15
 on:
   push:
     branches: [main]
